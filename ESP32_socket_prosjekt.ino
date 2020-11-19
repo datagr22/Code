@@ -137,7 +137,7 @@ void Drive(int Direction){
     digitalWrite(in1, LOW);
     digitalWrite(in2, HIGH);
     analogWrite(enA, 255);
-} elseif (Direction == 1){
+} else if (Direction == 1){
     digitalWrite(in1, HIGH);
     digitalWrite(in2, LOW);
     analogWrite(enA, 255);
@@ -155,7 +155,7 @@ void softTurn(int Direction) {
   if(Direction == 1) {
     servo.write(0);
   }
-  elseif(Direction == -1){
+  else if(Direction == -1){
     servo.write(100);
   }
   else{
