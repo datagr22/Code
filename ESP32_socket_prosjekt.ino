@@ -121,12 +121,10 @@ void setup() {
 
     //Here we declare all the different events the ESP32 should react to if the server tells it to.
     //a socket.emit("identifier", data) with any of the identifieres as defined below will make the socket call the functions in the arguments below
-    webSocket.on("clientConnected", event); //For example, the socket.io server on node.js calls client.emit("clientConnected", ID, IP) Then this ESP32 will react with calling the event function
-    webSocket.on("LEDStateChange", changeLEDState);
+    webSocket.on("clientConnected", event); //For example, the socket.io server on node.js calls client.emit("clientConnected", ID, IP) Then this ESP32 will react with calling the event functio
     webSocket.on("DriveStateChange", changeDriveState);
     webSocket.on("TurnStateChange", changeTurnState);
-    webSocket.on("stopDriving", stopDriving);
-
+    
     //Send data to server/webpage
     webSocket.on("dataRequest", dataRequest); //Listens for the command to send data
 
@@ -139,7 +137,7 @@ void Drive(int Direction){
     digitalWrite(in1, LOW);
     digitalWrite(in2, HIGH);
     analogWrite(enA, 255);
-} elseif {Direction == 1){
+} elseif (Direction == 1){
     digitalWrite(in1, HIGH);
     digitalWrite(in2, LOW);
     analogWrite(enA, 255);
@@ -157,11 +155,11 @@ void softTurn(int Direction) {
   if(Direction == 1) {
     servo.write(0);
   }
-  elseif{Direction == -1){
+  elseif(Direction == -1){
     servo.write(100);
   }
-  else {
-    servo.write(50)
+  else{
+    servo.write(50);
   }
 }
 
