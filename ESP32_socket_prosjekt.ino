@@ -23,19 +23,6 @@ void event(const char * payload, size_t length) { //Default event, what happens 
   Serial.printf("got message: %s\n", payload);
 }
 
-void changeLEDState(const char * LEDStateData, size_t length) { //What happens when the ESP32 receives a instruction from the server (with variable) to change the LED
-  Serial.printf("LED State: %s\n", LEDStateData); //First we print the data formated with the "printf" command
-  Serial.println(LEDStateData); //Then we just print the LEDStateData which will be a int (0 og 1 so in reeality bool) that tells us what to do with the LED
-
-  //Data conversion //We need som data processing to make this work
-  String dataString(LEDStateData); //First we convert the const char array(*) to a string in Arduino (this makes thing easier)
-  int LEDState = dataString.toInt(); //When we have a string we can use the built in Arduino function to convert to an integer
-
-  Serial.print("This is the LED state in INT: "); //We print the final state
-  Serial.println(LEDState);
-  digitalWrite(18, LEDState);//We now use the varible to change the light (1 is on, 0 is off)
-}
-
 void changeDriveState(const char * DriveStateData, size_t length) { //Same logic as earlier
   Serial.printf("Drive State: %s\n", DriveStateData);
   Serial.println(DriveStateData);
@@ -94,6 +81,7 @@ void setup() {
     servo.attach(servoPin);
     digitalWrite(in1, LOW);
     digitalWrite(in2, LOW);
+    analogWrite(enA, 255);
     
     //EKSEMPELKODE
     Serial.begin(9600); //Start the serial monitor
@@ -136,11 +124,9 @@ void Drive(int Direction){
   if(Direction == -1) {
     digitalWrite(in1, LOW);
     digitalWrite(in2, HIGH);
-    analogWrite(enA, 255);
 } else if (Direction == 1){
     digitalWrite(in1, HIGH);
     digitalWrite(in2, LOW);
-    analogWrite(enA, 255);
 } else{
     digitalWrite(in1, LOW);
     digitalWrite(in2, LOW);
