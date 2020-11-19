@@ -18,7 +18,7 @@ html,body { /*Here two elements are defined at the same time, that is possible. 
     align-items: flex-start; /*This aligns the items on the y-axis. Here we are telling all elements within to always be aligned at the start*/
     justify-content: center; /*This aligns the items on the x-axis. Here we are telling all elements within to always be aligned at the center*/
     flex-flow: wrap; /*This tells all the elements within this element/box that if the screen becoms to small the elements are allowed to alter placement for optimal view/design*/
-    background-color: rgba(248, 248, 248, 1.0); /*This sets the background color of the box, in this case close to almost white*/
+    background-color: rgb(55, 54, 54); /*This sets the background color of the box, in this case close to almost white*/
 }
 
 /* Control */
@@ -33,7 +33,7 @@ html,body { /*Here two elements are defined at the same time, that is possible. 
 
 .control-module { /*This defines common properties off all the control modules boxes (1-4)*/
     width: 49.95%;
-    height: 50%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -49,14 +49,6 @@ html,body { /*Here two elements are defined at the same time, that is possible. 
     border-bottom: 1px solid rgba(230, 230, 230, 1.0);
 }
 
-#control-module-3 {
-    border-right: 1px solid rgba(230, 230, 230, 1.0);
-}
-
-#control-module-4 {
-
-}
-
 /* Controlmodules */
 /* Keyboard */
 .key-container {
@@ -65,9 +57,9 @@ html,body { /*Here two elements are defined at the same time, that is possible. 
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(255, 255, 255, 1.0);
-    border-left: 1px solid rgba(240, 240, 240, 1.0);
-    border-bottom: 2px solid rgba(240, 240, 240, 1.0);
+    background-color: rgb(81, 79, 79);
+    border-left: 1px solid rgb(48, 47, 47);
+    border-bottom: 2px solid rgba(48, 47, 47, 1.0);
     flex-flow: wrap;
 }
 
@@ -94,9 +86,9 @@ html,body { /*Here two elements are defined at the same time, that is possible. 
     align-items: center;
     justify-content: center;
     border-radius: 2%;
-    border: 3px solid #303030;
-    color: #00509e; /*This sets the color of the text*/
-    background-color: white;
+    border: 3px solid #212121;
+    color: white; /*This sets the color of the text*/
+    background-color: rgb(55, 54, 54);
     font-size: 50px; /*This sets the font size of the text*/
     font-family: "Arial";
     font-weight: 900; /*This sets the font properties (bold, italics, etc.)*/
@@ -118,9 +110,9 @@ html,body { /*Here two elements are defined at the same time, that is possible. 
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(255, 255, 255, 1.0);
-    border-left: 1px solid rgba(240, 240, 240, 1.0);
-    border-bottom: 2px solid rgba(240, 240, 240, 1.0);
+    background-color: rgb(81, 79, 79);
+    border-left: 1px solid rgb(48, 47, 47);
+    border-bottom: 2px solid rgba(48, 47, 47, 1.0);
     flex-flow: wrap;
 }
 
@@ -130,23 +122,22 @@ html,body { /*Here two elements are defined at the same time, that is possible. 
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 1px solid rgba(230, 230, 230, 1.0);
+    border-bottom: 2px solid rgba(48, 47, 47, 1.0);
     cursor: pointer;
 }
 
-
 .btn-title {
-    width: 40%;
-    height: 40%;
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: "Arial";
     font-size: 24px;
     font-weight: 800;
+    color: white;
     margin: 0 2.5%;
 }
-
 
 .btn-box {
     width: 50%;
@@ -154,69 +145,6 @@ html,body { /*Here two elements are defined at the same time, that is possible. 
     display: flex;
     align-items: center;
     justify-content: center;
-}
-.slide-container {
-    width: 40%;
-    height: 40%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(255, 255, 255, 1.0);
-    border-left: 1px solid rgba(240, 240, 240, 1.0);
-    border-bottom: 2px solid rgba(240, 240, 240, 1.0);
-    flex-flow: wrap;
-}
-
-.slider {
-    -webkit-appearance: none; /* Override default look */
-    appearance: none;
-    width: 100%; /* Set a specific slider handle width */
-    height: 15px; /* Slider handle height */
-    border-radius: 5px;
-    background: #d3d3d3; /* Green background */
-    outline: none;
-    opacity: 0.7;
-    -webkit-transition: .2s;
-    transition: opacity .2s;
-}
-.slider:hover{
-    opacity: 1;
-}
-.slider::-webkit-slider-thumb{
-    -webkit-appearance: none;
-    appearance: none;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background: #4CAF50;
-    cursor: pointer;
-}
-.slider::-moz-range-thumb {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background: #4CAF50;
-    cursor: pointer;
-}
-.slider-title {
-    width: 40%;
-    height: 40%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: "Arial";
-    font-size: 24px;
-    font-weight: 800;
-    margin: 0 2.5%;
-}
-.slider-title-con {
-    width: 100%;
-    height: 25%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-bottom: 1px solid rgba(230, 230, 230, 1.0);
-    cursor: pointer;
 }
 
 .btn {
@@ -235,16 +163,4 @@ html,body { /*Here two elements are defined at the same time, that is possible. 
 
 .btn:hover {
     cursor: pointer;
-}
-
-/* Chart */
-.chart-container {
-    width: 40%;
-    height: 40%;
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    background-color: rgba(255, 255, 255, 1.0);
-    border-left: 1px solid rgba(240, 240, 240, 1.0);
-    border-bottom: 2px solid rgba(240, 240, 240, 1.0);
 }
