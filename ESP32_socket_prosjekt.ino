@@ -120,11 +120,11 @@ void setup() {
 }
 
 //Drive the car forwards or backwards (THIS IS JUST AN EXAMPLE AND NOT WHAT YOU HAVE TO USE IT FOR)
-void Drive(int Direction){
-  if(Direction == -1) {
+void Drive(int a){
+  if(a == -1) {
     digitalWrite(in1, LOW);
     digitalWrite(in2, HIGH);
-} else if (Direction == 1){
+} else if (a == 1){
     digitalWrite(in1, HIGH);
     digitalWrite(in2, LOW);
 } else{
