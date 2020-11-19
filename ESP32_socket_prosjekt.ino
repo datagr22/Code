@@ -127,7 +127,7 @@ void Drive(int a){
 } else if (a == 1){
     digitalWrite(in1, HIGH);
     digitalWrite(in2, LOW);
-} else{
+} else if (a == 0){
     digitalWrite(in1, LOW);
     digitalWrite(in2, LOW);
   }
@@ -144,7 +144,7 @@ void softTurn(int Direction) {
   else if(Direction == -1){
     servo.write(100);
   }
-  else{
+  else if(Direction == 0){
     servo.write(50);
   }
 }
