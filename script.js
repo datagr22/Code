@@ -70,6 +70,7 @@ function w_key(){
         wPressed = false;
         keyW.style.color = "white";
         keyW.style.backgroundColor = "rgb(55, 54, 54)";
+        changeStopState(0);
     }
 }
 
@@ -86,6 +87,7 @@ function a_key(){
         aPressed = false;
         keyA.style.color = "white";
         keyA.style.backgroundColor = "rgb(55, 54, 54)";
+        changeStopState(0);
     }
 }
 
@@ -102,6 +104,7 @@ function s_key(){
         sPressed = false;
         keyS.style.color = "white";
         keyS.style.backgroundColor = "rgb(55, 54, 54)";
+        changeStopState(0);
     }
 }
 
@@ -118,5 +121,6 @@ function d_key(){
         dPressed = false;
         keyD.style.color = "white";
         keyD.style.backgroundColor = "rgb(55, 54, 54)";
+        changeStopState(0);
     }
 }
