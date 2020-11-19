@@ -62,35 +62,6 @@ void changeTurnState(const char * TurnStateData, size_t length) {
   softTurn(TurnState);
 }
 
-void stopDriving(const char * StopStateData, size_t length) {
-  Serial.printf("Stop State: %s\n", StopStateData);
-  Serial.println(StopStateData);
-
-  //Data conversion
-  String dataString(StopStateData);
-  int StopState = dataString.toInt();
-
-  Serial.print("This is the Stop state in INT: ");
-  Serial.println(StopState);
-  Stop(StopState);
-}
-void changeSpeed(uint8_t num, WStype_t type, uint8_t * payload, size_t length){
-  if(type == WStype_TEXT){
-    if(payload[0] == '#'){
-      uint16_t Speed = (uint16_t) strtol((const char *) &payload[1], NULL, 10);
-      Speed = 255 - Speed;
-      analogWrite(enA, Speed);
-      Serial.print("This is the speed: ");
-      Serial.println(Speed);
-    }
-    else{
-      for(int i = 0; i < length; i++){
-        Serial.print((char) payload[i]);
-        Serial.println();
-      }
-    }
-  }
-}
 
 void dataRequest(const char * DataRequestData, size_t length) {//This is the function that is called everytime the server asks for data from the ESP32
   Serial.printf("Datarequest Data: %s\n", DataRequestData);
@@ -163,30 +134,32 @@ void setup() {
 }
 
 //Drive the car forwards or backwards (THIS IS JUST AN EXAMPLE AND NOT WHAT YOU HAVE TO USE IT FOR)
-void Drive(bool Direction){
-  if(Direction) {
+void Drive(int Direction){
+  if(Direction == -1) {
     digitalWrite(in1, LOW);
     digitalWrite(in2, HIGH);
-  } else {
+} elseif {Direction == 1){
     digitalWrite(in1, HIGH);
     digitalWrite(in2, LOW);  
-    }
+} else{
+    digitalWrite(in1, LOW);
+    digitalWrite(in2, LOW);
+  }
 }
 
-//Stop the car
-void Stop(bool state){
 
-    servo.write(50);
-}
 
 //Turn the car left or right (turns with the frontwheels)
-void softTurn(bool Direction) {
+void softTurn(int Direction) {
   
-  if(Direction) {
+  if(Direction == 1) {
     servo.write(0);
   }
-  else {
+  elseif{Direction == -1){
     servo.write(100);
+  }
+  else {
+    servo.write(50)
   }
 }
 
