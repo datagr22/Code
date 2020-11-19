@@ -11,13 +11,6 @@ var dPressed = false;
 var press;
 var release;
 
-var slider = document.getElementById("speed-control");
-var speed = document.getElementById("speed");
-speed.innerHTML = slider.value;
-
-slider.oninput = function (){
-    speed.innerHTML = this.value;
-}
 
 document.onkeypress = function(event){
     key_operations(event);
