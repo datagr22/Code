@@ -69,8 +69,8 @@ function w_key(){
     else if(release == true){
         wPressed = false;
         keyW.style.color = "white";
-        keyW.style.backgroundColor = "rgb(55, 54, 54)";
-        changeStopState(0);
+        keyW.style.backgroundColor = "rgb(55, 54, 54)"
+        changeDriveState(0);
     }
 }
 
@@ -87,7 +87,7 @@ function a_key(){
         aPressed = false;
         keyA.style.color = "white";
         keyA.style.backgroundColor = "rgb(55, 54, 54)";
-        changeStopState(0);
+        changeTurnState(0);
     }
 }
 
@@ -97,14 +97,14 @@ function s_key(){
         sPressed = true;
         keyS.style.color = "rgb(55, 54, 54)";
         keyS.style.backgroundColor = "white";
-        changeDriveState(0);
+        changeDriveState(-1);
     }
 
     else if(release == true){
         sPressed = false;
         keyS.style.color = "white";
         keyS.style.backgroundColor = "rgb(55, 54, 54)";
-        changeStopState(0);
+        changeDriveState(0);
     }
 }
 
@@ -114,13 +114,13 @@ function d_key(){
         dPressed = true;
         keyD.style.color = "rgb(55, 54, 54)";
         keyD.style.backgroundColor = "white";
-        changeTurnState(0);
+        changeTurnState(-1);
     }
 
     else if(release == true){
         dPressed = false;
         keyD.style.color = "white";
         keyD.style.backgroundColor = "rgb(55, 54, 54)";
-        changeStopState(0);
+        changeTurnState(0);
     }
 }
