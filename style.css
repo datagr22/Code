@@ -148,7 +148,7 @@ html,body { /*Here two elements are defined at the same time, that is possible. 
 }
 
 .btn {
-    width: 75%;
+    width: 80%;
     height: 50%;
     display: flex;
     align-items: center;
@@ -157,7 +157,7 @@ html,body { /*Here two elements are defined at the same time, that is possible. 
     font-size: 16px;
     font-weight: 800;
     color: white;
-    background-color: #7AD661;
+    background-color: #0725db;
     border-radius: 2px;
 }
 
