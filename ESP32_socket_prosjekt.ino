@@ -1,14 +1,21 @@
 #include <Servo.h>
-#include <analogWrite.h> //Import the analogWrite library for ESP32 so that analogWrite works properly
+#include <analogWrite.h>
 
 
 //Selve bilen
-#define enA 12
-#define in1 33
-#define in2 32
 
-const int servoPin = 26;
-Servo servo;
+const int enA = 14;
+const int in1 = 27;
+const int in2 = 12;
+const int servoPin = 13;
+const int trigPin = 32;
+const int echoPin = 33;
+
+long duration;
+int distance;
+
+
+Servo myServo;
 //Eksempelkoden
 
 #include <WiFi.h>//Imports the needed WiFi libraries
@@ -19,9 +26,14 @@ Servo servo;
 WiFiMulti WiFiMulti; //Declare an instane of the WiFiMulti library
 SocketIoClient webSocket; //Decalre an instance of the Socket.io library
 
+//void ControlDCMotor(int _enA, int in1, int in2);
+//void ControlServo(Servo _MyServo);
+
+
 void event(const char * payload, size_t length) { //Default event, what happens when you connect
   Serial.printf("got message: %s\n", payload);
 }
+
 
 void changeDriveState(const char * DriveStateData, size_t length) { //Same logic as earlier
   Serial.printf("Drive State: %s\n", DriveStateData);
@@ -44,48 +56,29 @@ void changeTurnState(const char * TurnStateData, size_t length) {
   String dataString(TurnStateData);
   int TurnState = dataString.toInt();
 
+
   Serial.print("This is the Turn state in INT: ");
   Serial.println(TurnState);
+
+  
   softTurn(TurnState);
 }
 
-
-void dataRequest(const char * DataRequestData, size_t length) {//This is the function that is called everytime the server asks for data from the ESP32
-  Serial.printf("Datarequest Data: %s\n", DataRequestData);
-  Serial.println(DataRequestData);
-
-  //Data conversion
-  String dataString(DataRequestData);
-  int RequestState = dataString.toInt();
-
-  Serial.print("This is the Datarequest Data in INT: ");
-  Serial.println(RequestState);
-
-  if(RequestState == 0) { //If the datarequest gives the variable 0, do this (default)
-    
-    char str[10]; //Decalre a char array (needs to be char array to send to server)
-    itoa(analogRead(27), str, 10); //Use a special formatting function to get the char array as we want to, here we put the analogRead value from port 27 into the str variable
-    Serial.print("ITOA TEST: ");
-    Serial.println(str);
-    
-    webSocket.emit("dataFromBoard", str); //Here the data is sendt to the server and then the server sends it to the webpage
-    //Str indicates the data that is sendt every timeintervall, you can change this to "250" and se 250 be graphed on the webpage
-  }
-}
 
 void setup() {
     //SELVE BILEN
     pinMode(in1, OUTPUT);
     pinMode(in2, OUTPUT); 
     pinMode(enA, OUTPUT);
-    servo.attach(servoPin);
-    digitalWrite(in1, LOW);
-    digitalWrite(in2, LOW);
-    analogWrite(enA, 255);
+    pinMode(trigPin, OUTPUT);
+    pinMode(echoPin, INPUT);
+    
+    myServo.attach(servoPin);
     
     //EKSEMPELKODE
     Serial.begin(9600); //Start the serial monitor
 
+    
     Serial.setDebugOutput(true); //Set debug to true (during ESP32 booting)
 
     Serial.println();
@@ -113,23 +106,27 @@ void setup() {
     webSocket.on("DriveStateChange", changeDriveState);
     webSocket.on("TurnStateChange", changeTurnState);
     
-    //Send data to server/webpage
-    webSocket.on("dataRequest", dataRequest); //Listens for the command to send data
 
     webSocket.begin("10.0.0.24", 2520); //This starts the connection to the server with the ip-address/domainname and a port (unencrypted)
 }
 
 //Drive the car forwards or backwards (THIS IS JUST AN EXAMPLE AND NOT WHAT YOU HAVE TO USE IT FOR)
 void Drive(int a){
-  if(a == -1) {
+  
+  if(a == 1) {
     digitalWrite(in1, LOW);
     digitalWrite(in2, HIGH);
-} else if (a == 1){
+    analogWrite(enA, 150);
+      
+} else if (a == -1){
     digitalWrite(in1, HIGH);
     digitalWrite(in2, LOW);
-} else if (a == 0){
+    analogWrite(enA, 150);
+     
+} else if(a == 0){
     digitalWrite(in1, LOW);
     digitalWrite(in2, LOW);
+    analogWrite(enA, 0);
   }
 }
 
@@ -139,19 +136,70 @@ void Drive(int a){
 void softTurn(int Direction) {
   
   if(Direction == 1) {
-    servo.write(0);
+    myServo.write(10);
   }
   else if(Direction == -1){
-    servo.write(100);
+    myServo.write(100);
   }
-  else if(Direction == 0){
-    servo.write(50);
+  else if (Direction == 0){
+    myServo.write(50);
   }
 }
 
 
 void loop() {
-  webSocket.loop(); //Keeps the WebSocket connection running 
+  webSocket.loop();
+//
+//  digitalWrite(trigPin, LOW);
+//  delayMicroseconds(2);
+//  digitalWrite(trigPin, HIGH);
+//  delayMicroseconds(2);
+//  digitalWrite(trigPin, LOW);
+//
+//  duration = pulseIn(echoPin, HIGH);
+//
+//  distance = duration*0.034/2;
+//
+//  
+//
+//  ControlDCMotor(enA, in1, in2);
+//  ControlServo(myServo);
+//}
+//
+//
+//void ControlDCMotor(int _enA, int in1, int in2){
+//  
+//  if(distance < 10){
+//    delay(10);
+//    digitalWrite(in1, HIGH);
+//    digitalWrite(in2, LOW);
+//
+//    analogWrite(enA, 150);
+//    
+//  }
+//  else if(distance > 10){
+//    digitalWrite(in1, LOW);
+//    digitalWrite(in2, HIGH);
+//
+//    analogWrite(enA, 150);
+//  }
+//  else{
+//    digitalWrite(in1, LOW);
+//    digitalWrite(in2, LOW);
+//
+//    analogWrite(enA, 0);
+//  } 
+//}
+//void ControlServo(Servo _myServo){
+//  
+//  if(distance < 10){
+//    myServo.write(100);
+//  }
+//  else if(distance > 10){
+//    myServo.write(50);
+//  }
+}
+
+  //Keeps the WebSocket connection running 
   //DO NOT USE DELAY HERE, IT WILL INTERFER WITH WEBSOCKET OPERATIONS
   //TO MAKE TIMED EVENTS HERE USE THE millis() FUNCTION OR PUT TIMERS ON THE SERVER IN JAVASCRIPT
-}
