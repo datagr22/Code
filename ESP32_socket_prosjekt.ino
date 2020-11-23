@@ -1,21 +1,25 @@
-#include <Servo.h>
+#include <Servo_ESP32.h>
+
 #include <analogWrite.h>
 
 
 //Selve bilen
 
 const int enA = 14;
-const int in1 = 27;
-const int in2 = 12;
+const int in1 = 26;
+const int in2 = 27;
 const int servoPin = 13;
 const int trigPin = 32;
 const int echoPin = 33;
+
+int DriveState;
+int TurnState;
 
 long duration;
 int distance;
 
 
-Servo myServo;
+Servo_ESP32 myServo;
 //Eksempelkoden
 
 #include <WiFi.h>//Imports the needed WiFi libraries
@@ -26,8 +30,8 @@ Servo myServo;
 WiFiMulti WiFiMulti; //Declare an instane of the WiFiMulti library
 SocketIoClient webSocket; //Decalre an instance of the Socket.io library
 
-//void ControlDCMotor(int _enA, int in1, int in2);
-//void ControlServo(Servo _MyServo);
+void ControlDCMotor(int _enA, int in1, int in2);
+void ControlServo(Servo_ESP32 myServo);
 
 
 void event(const char * payload, size_t length) { //Default event, what happens when you connect
@@ -41,11 +45,12 @@ void changeDriveState(const char * DriveStateData, size_t length) { //Same logic
 
   //Data conversion
   String dataString(DriveStateData);
-  int DriveState = dataString.toInt();
+  DriveState = dataString.toInt();
 
   Serial.print("This is the Drive state in INT: ");
   Serial.println(DriveState);
-  Drive(DriveState);
+
+  ControlDCMotor(DriveState);
 }
 
 void changeTurnState(const char * TurnStateData, size_t length) {
@@ -54,14 +59,14 @@ void changeTurnState(const char * TurnStateData, size_t length) {
 
   //Data conversion
   String dataString(TurnStateData);
-  int TurnState = dataString.toInt();
+  TurnState = dataString.toInt();
 
 
   Serial.print("This is the Turn state in INT: ");
   Serial.println(TurnState);
 
   
-  softTurn(TurnState);
+  ControlServo(TurnState);
 }
 
 
@@ -110,20 +115,22 @@ void setup() {
     webSocket.begin("10.0.0.24", 2520); //This starts the connection to the server with the ip-address/domainname and a port (unencrypted)
 }
 
+
+
 //Drive the car forwards or backwards (THIS IS JUST AN EXAMPLE AND NOT WHAT YOU HAVE TO USE IT FOR)
-void Drive(int a){
+void ControlDCMotor(int DriveState){
   
-  if(a == 1) {
+  if(DriveState == 1) {
     digitalWrite(in1, LOW);
     digitalWrite(in2, HIGH);
     analogWrite(enA, 150);
       
-} else if (a == -1){
+} else if (DriveState == -1){
     digitalWrite(in1, HIGH);
     digitalWrite(in2, LOW);
     analogWrite(enA, 150);
      
-} else if(a == 0){
+} else if(DriveState == 0){
     digitalWrite(in1, LOW);
     digitalWrite(in2, LOW);
     analogWrite(enA, 0);
@@ -132,16 +139,18 @@ void Drive(int a){
 
 
 
+
 //Turn the car left or right (turns with the frontwheels)
-void softTurn(int Direction) {
+void ControlServo(int TurnState) {
+
+  if(TurnState == 1) {
+    myServo.write(0);
   
-  if(Direction == 1) {
-    myServo.write(10);
   }
-  else if(Direction == -1){
+  else if(TurnState == -1){
     myServo.write(100);
   }
-  else if (Direction == 0){
+  else if(TurnState == 0){
     myServo.write(50);
   }
 }
@@ -149,6 +158,8 @@ void softTurn(int Direction) {
 
 void loop() {
   webSocket.loop();
+
+
 //
 //  digitalWrite(trigPin, LOW);
 //  delayMicroseconds(2);
@@ -162,7 +173,6 @@ void loop() {
 //
 //  
 //
-//  ControlDCMotor(enA, in1, in2);
 //  ControlServo(myServo);
 //}
 //
