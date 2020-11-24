@@ -50,7 +50,7 @@ function key_operations(event){         // The main function dealing with key-op
     }
 }
 
-function w_key(){        // defines a function for each key, thats runs if the button is pressed
+function w_key(){ // defines a function for each key, thats runs if the button is pressed and/or released. Logs x in the console changes value of xPressed , changes the appearence of the key and changes a state according to the key
     if(press == true && !wPressed){
         console.log("w")
         wPressed = true;
