@@ -1,24 +1,18 @@
-#include <Servo_ESP32.h>
-#include <analogWrite.h>
-
-//Selve bilen
-
-const int servoPin = 13;
-
-int TurnState;
-
-
-Servo_ESP32 myServo;
-
-//Eksempelkoden
-
 #include <WiFi.h>//Imports the needed WiFi libraries
 #include <WiFiMulti.h> //We need a second one for the ESP32 (these are included when you have the ESP32 libraries)
 
 #include <SocketIoClient.h> //Import the Socket.io library, this also imports all the websockets
 
+#include <Servo_ESP32.h> //Import the Servo_ESP32 library
+#include <analogWrite.h> //Import the analogWrite.h library
+
+const int servoPin = 13; //Defines the servopin
+
+int TurnState; // 
+
 WiFiMulti WiFiMulti; //Declare an instane of the WiFiMulti library
-SocketIoClient webSocket; //Decalre an instance of the Socket.io library
+SocketIoClient webSocket; //Declare an instance of the Socket.io library
+Servo_ESP32 myServo; //Declare an instance of the Servo_ESP32 library
 
 void ControlServo(Servo_ESP32 myServo);
 
@@ -44,11 +38,9 @@ void changeTurnState(const char * TurnStateData, size_t length) {
 }
 
 void setup() {
-    //SELVE BILEN
 
-    myServo.attach(servoPin);
+    myServo.attach(servoPin);//Attach the servo to the servopin
     
-    //EKSEMPELKODE
     Serial.begin(9600); //Start the serial monitor
 
     
@@ -64,7 +56,7 @@ void setup() {
           delay(1000);
       }
 
-    WiFiMulti.addAP("Mathisen", "sommerfugl94"); //Add a WiFi hotspot (addAP = add AccessPoint) (put your own network name and password in here)
+    WiFiMulti.addAP("NetworkName","Password"); //Add a WiFi hotspot (addAP = add AccessPoint) (put your own network name and password in here)
 
     while(WiFiMulti.run() != WL_CONNECTED) { //Here we wait for a successfull WiFi connection untill we do anything else
       Serial.println("Not connected to wifi...");
@@ -79,10 +71,10 @@ void setup() {
     webSocket.on("TurnStateChange", changeTurnState);
     
 
-    webSocket.begin("10.0.0.24", 2520); //This starts the connection to the server with the ip-address/domainname and a port (unencrypted)
+    webSocket.begin("IP address", "Port"); //This starts the connection to the server with the ip-address/domainname and a port (unencrypted)
 }
 
-//Turn the car left or right (turns with the frontwheels)
+//Turn the car left (1), right (-1) and forward (0)
 void ControlServo(int TurnState) {
  
   if(TurnState == 1) {
