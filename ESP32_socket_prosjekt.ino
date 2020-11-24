@@ -1,17 +1,17 @@
+//Including the necassary libraries
+
 #include <Servo_ESP32.h>
 #include <analogWrite.h>
 
-//Selve bilen
+//Defining L298N ports
 
 const int enA = 14;
 const int in1 = 26;
 const int in2 = 27;
 
-int DriveState;
 
-
+//Defining the servo as myServo
 Servo_ESP32 myServo;
-//Eksempelkoden
 
 #include <WiFi.h>//Imports the needed WiFi libraries
 #include <WiFiMulti.h> //We need a second one for the ESP32 (these are included when you have the ESP32 libraries)
@@ -33,7 +33,7 @@ void changeDriveState(const char * DriveStateData, size_t length) { //Same logic
 
   //Data conversion
   String dataString(DriveStateData);
-  DriveState = dataString.toInt();
+  int DriveState = dataString.toInt();
 
   Serial.print("This is the Drive state in INT: ");
   Serial.println(DriveState);
@@ -42,7 +42,7 @@ void changeDriveState(const char * DriveStateData, size_t length) { //Same logic
 }
 
 void setup() {
-    //SELVE BILEN
+    
     pinMode(in1, OUTPUT);
     pinMode(in2, OUTPUT); 
     pinMode(enA, OUTPUT);
