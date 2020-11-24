@@ -8,7 +8,7 @@ Lego car controlled by 2 ESP32 and a Raspberry Pi. Created with Webstorm, Node.j
 * [Setup](#setup)
 * [Features](#features)
 * [Inspiration](#inspiration)
-* [Car Scematic](#car scematic)
+* [Car Scematic](#car-scematic)
 
 ## General info
 This project is a lego car that can be controlled by remote clients.
