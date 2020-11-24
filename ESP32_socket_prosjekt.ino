@@ -3,17 +3,17 @@
 #include <Servo_ESP32.h>
 #include <analogWrite.h>
 
-//Defining L298N ports
+//  Defining L298N ports
 
-const int enA = 14;
-const int in1 = 26;
-const int in2 = 27;
+const int enA = 14;  // defines the pin that controls the DC-motors speed
+const int in1 = 26;  // defines one of the pins that decides the rotation direction
+const int in2 = 27;  // defines the other pin that decides the rotation direction
 
 
-//Defining the servo as myServo
+// Defining the servo as myServo
 Servo_ESP32 myServo;
 
-#include <WiFi.h>//Imports the needed WiFi libraries
+#include <WiFi.h>// Imports the needed WiFi libraries
 #include <WiFiMulti.h> //We need a second one for the ESP32 (these are included when you have the ESP32 libraries)
 
 #include <SocketIoClient.h> //Import the Socket.io library, this also imports all the websockets
@@ -21,7 +21,7 @@ Servo_ESP32 myServo;
 WiFiMulti WiFiMulti; //Declare an instane of the WiFiMulti library
 SocketIoClient webSocket; //Decalre an instance of the Socket.io library
 
-void ControlDCMotor(int _enA, int in1, int in2);
+void ControlDCMotor(int _enA, int in1, int in2); // defines a function for the DC-motor controller (???????)
 
 void event(const char * payload, size_t length) { //Default event, what happens when you connect
   Serial.printf("got message: %s\n", payload);
@@ -42,7 +42,7 @@ void changeDriveState(const char * DriveStateData, size_t length) { //Same logic
 }
 
 void setup() {
-    
+    // defines the DC-motor controller pins as outputs
     pinMode(in1, OUTPUT);
     pinMode(in2, OUTPUT); 
     pinMode(enA, OUTPUT);
@@ -64,7 +64,7 @@ void setup() {
           delay(1000);
       }
 
-    WiFiMulti.addAP("Mathisen", "sommerfugl94"); //Add a WiFi hotspot (addAP = add AccessPoint) (put your own network name and password in here)
+    WiFiMulti.addAP("WiFiName", "Password"); //Add a WiFi hotspot (addAP = add AccessPoint) (put your own network name and password in here)
 
     while(WiFiMulti.run() != WL_CONNECTED) { //Here we wait for a successfull WiFi connection untill we do anything else
       Serial.println("Not connected to wifi...");
@@ -78,10 +78,10 @@ void setup() {
     webSocket.on("clientConnected", event); //For example, the socket.io server on node.js calls client.emit("clientConnected", ID, IP) Then this ESP32 will react with calling the event functio
     webSocket.on("DriveStateChange", changeDriveState);
     
-    webSocket.begin("10.0.0.24", 2520); //This starts the connection to the server with the ip-address/domainname and a port (unencrypted)
+    webSocket.begin("IP address", "port"); //This starts the connection to the server with the ip-address/domainname and a port (unencrypted)
 }
 
-//Drive the car forwards or backwards (THIS IS JUST AN EXAMPLE AND NOT WHAT YOU HAVE TO USE IT FOR)
+//Defines the function that makes the car drive forward (1), backwards (-1) and stand still (0)
 void ControlDCMotor(int DriveState){
   
   if(DriveState == 1) {
