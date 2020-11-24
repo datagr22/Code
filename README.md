@@ -6,7 +6,8 @@ Lego car controlled by 2 ESP32 and a Raspberry Pi. Created with Webstorm, Node.j
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Setup](#setup)
-
+* [Features](#features)
+* [Inspiration](#inspiration)
 
 ## General info
 This project is a lego car that can be controlled by remote clients.
@@ -40,3 +41,13 @@ Project is created using the following hardware:
  - Upload index.html, script.js, server_no_encrypt-js, socket.js and style.css to the Raspberry.
  - On the Raspberry, locate the uploaded files and place them in the "html" folder in "/var/www/html".
  - Set up Port Forwarding on your Local Router in order to get access from outside your local network. (Optional)
+ 
+ ## Features
+ 
+  - Build an awesome car that can be wirelessly controlled by anyone at anytime.
+  - Simply connect to the car anywhere and have fun driving.
+ 
+ 
+ ## Inspiration
+
+This project was inspired by our growing interest for IoT and the will to learn more code.
