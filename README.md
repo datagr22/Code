@@ -53,3 +53,6 @@ Project is created using the following hardware:
  ## Inspiration
 
 This project was inspired by our growing interest for IoT and the will to learn more code.
+
+ ## Car Scematic
+ ![Car Scematic](https://github.com/datagr22/Code/blob/main/ESP32_Car_schem.png)
