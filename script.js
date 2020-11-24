@@ -2,6 +2,9 @@ var keyW = document.getElementById("w");  // defines the W key on the keyboard a
 var keyA = document.getElementById("a");  // defines the A key on the keyboard as a variable
 var keyS = document.getElementById("s");  // defines the S key on the keyboard as a variable
 var keyD = document.getElementById("d");  // defines the D key on the keyboard as a variable
+
+var txtbx = document.getElementById("textbox");
+var txt = "";
  
 var wPressed = false;   // variable for button-pressed value (W) starts as false (0)
 var aPressed = false;   // variable for button-pressed value (A) starts as false (0)
@@ -55,6 +58,8 @@ function w_key(){ // defines a function for each key, thats runs if the button i
         console.log("w")
         wPressed = true;
         keyW.style.color = "rgb(55, 54, 54)";
+        txt += "Forward drive\n";
+        txtbx.innerHTML = txt;
         keyW.style.backgroundColor = "white";
         changeDriveState(1);
     }
@@ -65,6 +70,7 @@ function w_key(){ // defines a function for each key, thats runs if the button i
         keyW.style.backgroundColor = "rgb(55, 54, 54)"
         changeDriveState(0);
     }
+ txtbx.scrollTop = txtbx.scrollHeight
 }
 
 function a_key(){
@@ -80,8 +86,11 @@ function a_key(){
         aPressed = false;
         keyA.style.color = "white";
         keyA.style.backgroundColor = "rgb(55, 54, 54)";
+        txt += "Left turn\n";
+        txtbx.innerHTML = txt;
         changeTurnState(0);
     }
+ txtbx.scrollTop = txtbx.scrollHeight
 }
 
 function s_key(){
@@ -97,8 +106,11 @@ function s_key(){
         sPressed = false;
         keyS.style.color = "white";
         keyS.style.backgroundColor = "rgb(55, 54, 54)";
+        txt += "Reverse drive\n";
+        txtbx.innerHTML = txt;
         changeDriveState(0);
     }
+ txtbx.scrollTop = txtbx.scrollHeight
 }
 
 function d_key(){
@@ -114,6 +126,9 @@ function d_key(){
         dPressed = false;
         keyD.style.color = "white";
         keyD.style.backgroundColor = "rgb(55, 54, 54)";
+        txt += "Right turn\n";
+        txtbx.innerHTML = txt;
         changeTurnState(0);
     }
+ txtbx.scrollTop = txtbx.scrollHeight
 }
