@@ -20,7 +20,7 @@ Project is created using the following software:
  - Fail2Ban version: 0.9.3
  - Node.js version: 14.15.1
  - NPM version: 5.8.0
- - NGINX version:
+ - NGINX version: 1.14.2
 
 
 Project is created using the following hardware:
