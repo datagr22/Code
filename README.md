@@ -38,6 +38,7 @@ Project is created using the following hardware:
  - Setup NGINX on the Raspberry Pi.
  - Setup Node.js on the Raspberry Pi.
  - Setup NPM on the Raspberry Pi.
+ - Install "file-system", "express" and "socket.io" in NPM.
  - Upload index.html, script.js, server_no_encrypt-js, socket.js and style.css to the Raspberry.
  - On the Raspberry, locate the uploaded files and place them in the "html" folder in "/var/www/html".
  - Set up Port Forwarding on your Local Router in order to get access from outside your local network. (Optional)
