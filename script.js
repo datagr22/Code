@@ -1,12 +1,12 @@
-var keyW = document.getElementById("w");
-var keyA = document.getElementById("a");
-var keyS = document.getElementById("s");
-var keyD = document.getElementById("d");
-
-var wPressed = false;
-var aPressed = false;
-var sPressed = false;
-var dPressed = false;
+var keyW = document.getElementById("w");  // defines the W key on the keyboard as a variable
+var keyA = document.getElementById("a");  // defines the A key on the keyboard as a variable
+var keyS = document.getElementById("s");  // defines the S key on the keyboard as a variable
+var keyD = document.getElementById("d");  // defines the D key on the keyboard as a variable
+ 
+var wPressed = false;   // variable for button-pressed value (W) starts as false (0)
+var aPressed = false;   // variable for button-pressed value (A) starts as false (0)
+var sPressed = false;   // variable for button-pressed value (S) starts as false (0)
+var dPressed = false;   // variable for button-pressed value (D) starts as false (0)
 
 var press;
 var release;
@@ -21,7 +21,7 @@ document.onkeyup = function(event) {
 };
 
 
-function key_operations(event){         //The main function dealing with key-operations, whether it be press or release of keys
+function key_operations(event){         // The main function dealing with key-operations, whether it be press or release of keys
     var key = event.key;
     if(event.type == "keypress"){
         press = true;
@@ -50,7 +50,7 @@ function key_operations(event){         //The main function dealing with key-ope
     }
 }
 
-function w_key(){
+function w_key(){        // defines a function for each key, thats runs if the button is pressed
     if(press == true){
         console.log("w")
         wPressed = true;
