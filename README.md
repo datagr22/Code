@@ -19,7 +19,7 @@ Project is created using the following software:
  - Webstorm version: 2020.2.3
  - Fail2Ban version: 0.9.3
  - Node.js version: 14.15.1
- - NPM version: 
+ - NPM version: 5.8.0
  - NGINX version:
 
 
