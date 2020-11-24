@@ -51,7 +51,7 @@ function key_operations(event){         // The main function dealing with key-op
 }
 
 function w_key(){        // defines a function for each key, thats runs if the button is pressed
-    if(press == true){
+    if(press == true && !wPressed){
         console.log("w")
         wPressed = true;
         keyW.style.color = "rgb(55, 54, 54)";
@@ -68,7 +68,7 @@ function w_key(){        // defines a function for each key, thats runs if the b
 }
 
 function a_key(){
-    if(press == true){
+    if(press == true && !aPressed){
         console.log("a")
         aPressed = true;
         keyA.style.color = "rgb(55, 54, 54)";
@@ -85,7 +85,7 @@ function a_key(){
 }
 
 function s_key(){
-    if(press == true){
+    if(press == true && !sPressed){
         console.log("s")
         sPressed = true;
         keyS.style.color = "rgb(55, 54, 54)";
@@ -102,7 +102,7 @@ function s_key(){
 }
 
 function d_key(){
-    if(press == true){
+    if(press == true && !dPressed){
         console.log("d")
         dPressed = true;
         keyD.style.color = "rgb(55, 54, 54)";
