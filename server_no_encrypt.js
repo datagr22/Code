@@ -55,43 +55,4 @@ io.on('connection', function(socket){ //This is the server part of the "what hap
 
     });
 
-    var timers = []; //Stores all our timers
-    //Read data from board section
-
-    socket.on('requestDataFromBoard', function(interval) { //This function i earlier described client-side on the webpage.
-        //When the webpage calls it it will every time-interval send the "dataRequest" function to all connected clients.
-        //When a ESP32 receives this command, it will reply with a data of a specific measurement eg. a temperature sensor.
-        //This way, the timer is on the server/node.js and not on the ESP32/Arduino
-        console.log('user ' + clientID + ' requested data with interval (ms): ' + interval);
-
-        if(interval > 99) { //if the timeinterval is not more than 100ms it does not allow it to start
-            timers.push( //If an actual argument is given (a time period) it starts the timer and periodically calls the function
-                setInterval(function(){ //If an actual argument is given (a time period) it starts the timer and periodically calls the function
-                    io.emit('dataRequest', 0); //Send "dataRequest" command/function to all ESP32's
-                }, interval)
-            );
-        } else {
-            console.log("o short timeintervall");
-        }
-
-
-    });
-
-    socket.on('stopDataFromBoard', function() { //This function stops all the timers set by a user so that data will no longer be sent to the webpage
-        console.log('user ' + clientID + ' cleared data request interval');
-
-        for (var i = 0; i < timers.length; i++) {//For loop to clear all set timers
-            clearTimeout(timers[i]); //Cleartimer is the same as stopping the timer, in this case we clear all possible timers previously set
-        }
-
-    });
-
-    socket.on('dataFromBoard', function(data) { //This is function that actually receives the data. The earlier one only starts the function.
-
-        io.emit('data', data); //Everytime a "dataFromBoard" tag (with data) is sent to the server, "data" tag with the actual data is sent to all clients
-        //This means the webbrowser will receive the data, and can then graph it or similar.
-        console.log('user ' + clientID + ' gained the data: ' + data);
-
-    });
-
-});
+    
