@@ -58,7 +58,7 @@ void setup() {
           delay(1000);
       }
 
-    WiFiMulti.addAP("WiFiName", "Password"); //Add a WiFi hotspot (addAP = add AccessPoint) (put your own network name and password in here)
+    WiFiMulti.addAP("SSID", "Password"); //Add a WiFi hotspot (addAP = add AccessPoint) (put your own network name and password in here)
 
     while(WiFiMulti.run() != WL_CONNECTED) { //Here we wait for a successfull WiFi connection untill we do anything else
       Serial.println("Not connected to wifi...");
