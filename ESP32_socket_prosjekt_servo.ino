@@ -89,5 +89,5 @@ void ControlServo(int TurnState) {
 }
 
 void loop() {
-  webSocket.loop();
+  webSocket.loop(); //Keeps the socket communication running by looping it
 }
