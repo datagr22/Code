@@ -13,24 +13,10 @@ socket.on('clientConnected',function(id, ip) { //This is our selfmade functions.
 
 });
 
-socket.on('data', function(data) { //Received data from the server who is forwarding it to us from the ESP32
-
-    console.log('Data was received: ' + data);
-    console.log(Number(data));
-    dataArr1.push(data); //This pushes data to the array that stores all the chart data
-    myLineChart.update(); //This updates the chart
-
-});
 
 //In this function (which is essentially built up the same as a void function in Arduino) we want to send something to the server
 //For this we use the other important Socket.io function, .emit(arg). Here we are telling our socket object so call the "changeLEDState" function
 //on the server with the "state" argument. By calling the function on the server we mean that we send data to the server that tells it to do something
-function changeLEDState(state) {
-    //This function controls wether a LED-light is on or of
-    socket.emit('changeLEDState', state); //Here the actual socket-object function is called. If we want a response we will have to set up a function (.on) like earlier.
-    console.log("changeLEDState called");
-
-}
 
 function changeDriveState(state) {
 
@@ -44,32 +30,4 @@ function changeTurnState(state) {
     socket.emit('changeTurnState', state);
     console.log("changeTurnState called");
 
-}
-
-function changeStopState(state) {
-
-    socket.emit('changeStopState', state);
-    console.log("changeStopState called");
-
-}
-function setSpeed() {
-    socket.send("#"+document.getElementById("speed").value);
-    console.log("setSpeed called");
-}
-
-//This function also emits something to the server. But in this case we want something a little bit more complex to happen.
-//Since Arduino has a limited amount of timers, and using millis can be annoying, we have the possibilties of handing that task over to JavaScript on Node.js
-//The function we are calling here will tell the server to set up a JavaScript timer, which then will periodically send a message to the ESP32 asking for data.
-//Since the ESP32 easily can react to such a request it sends the data with no problems, and with no timers in use.
-//This means we dont have to use the delay() function or the millis() function in Arduino, we can just let Node and JavaScript fix the tracking of time for us
-//This is the function that will make the ESP32 transmit data to the server, and not the other way around
-function requestDataFromBoard(interval) {
-    socket.emit('requestDataFromBoard', interval); //Here we tell the server to call the function "requestDataFromBoard" with a argument called "intervall"
-    //The intervall value is the period of time between each data transmit from the ESP32 to the server. Typical values can be everything form 100ms to 100s
-    console.log("requestDataFromBoard was called with intervall: " + interval);
-} //Be careful to not set the interval value to low, you do not want to overflood your server with data/requests
-
-function stopDataFromBoard() { //Tells the server to stop all timers so that data is no longer sent from the ESP32 to the webpage
-    socket.emit('stopDataFromBoard'); //Here we tell the server to call the function "stopDataFromBoard"
-    console.log("stopDataFromBoard was called");
 }
