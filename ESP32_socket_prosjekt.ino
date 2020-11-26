@@ -1,7 +1,6 @@
 //Including the necassary libraries
 
-#include <Servo_ESP32.h>
-#include <analogWrite.h>
+#include <analogWrite.h> //analogWrite library to work with ESP32
 
 //  Defining L298N ports
 
@@ -9,9 +8,6 @@ const int enA = 14;  // defines the pin that controls the DC-motors speed
 const int in1 = 26;  // defines one of the pins that decides the rotation direction
 const int in2 = 27;  // defines the other pin that decides the rotation direction
 
-
-// Defining the servo as myServo
-Servo_ESP32 myServo;
 
 #include <WiFi.h>// Imports the needed WiFi libraries
 #include <WiFiMulti.h> //We need a second one for the ESP32 (these are included when you have the ESP32 libraries)
@@ -21,7 +17,6 @@ Servo_ESP32 myServo;
 WiFiMulti WiFiMulti; //Declare an instane of the WiFiMulti library
 SocketIoClient webSocket; //Decalre an instance of the Socket.io library
 
-void ControlDCMotor(int _enA, int in1, int in2); // defines a function for the DC-motor controller (???????)
 
 void event(const char * payload, size_t length) { //Default event, what happens when you connect
   Serial.printf("got message: %s\n", payload);
@@ -38,7 +33,7 @@ void changeDriveState(const char * DriveStateData, size_t length) { //Same logic
   Serial.print("This is the Drive state in INT: ");
   Serial.println(DriveState);
 
-  ControlDCMotor(DriveState);
+  ControlDCMotor(DriveState); //Calling the DC-Motor-function with the drivestates 
 }
 
 void setup() {
@@ -48,8 +43,7 @@ void setup() {
     pinMode(enA, OUTPUT);
     
     
-    //EKSEMPELKODE
-    Serial.begin(9600); //Start the serial monitor
+    Serial.begin(9600); //Initiates serial monitor
 
     
     Serial.setDebugOutput(true); //Set debug to true (during ESP32 booting)
@@ -81,20 +75,20 @@ void setup() {
     webSocket.begin("IP address", "port"); //This starts the connection to the server with the ip-address/domainname and a port (unencrypted)
 }
 
-//Defines the function that makes the car drive forward (1), backwards (-1) and stand still (0)
+//Defines the function that makes the car drive with the states forward (1), backwards (-1) and stand still (0)
 void ControlDCMotor(int DriveState){
   
-  if(DriveState == 1) {
+  if(DriveState == 1) { //Forward
     digitalWrite(in1, LOW);
     digitalWrite(in2, HIGH);
     analogWrite(enA, 255);
       
-} else if (DriveState == -1){
+} else if (DriveState == -1){ //Backward
     digitalWrite(in1, HIGH);
     digitalWrite(in2, LOW);
     analogWrite(enA, 255);
      
-} else if(DriveState == 0){
+} else if(DriveState == 0){ //Still
     digitalWrite(in1, LOW);
     digitalWrite(in2, LOW);
     analogWrite(enA, 0);
@@ -102,5 +96,5 @@ void ControlDCMotor(int DriveState){
 }
 
 void loop() {
-  webSocket.loop();
+  webSocket.loop(); //Keeps the socket communication running by looping it
 }
