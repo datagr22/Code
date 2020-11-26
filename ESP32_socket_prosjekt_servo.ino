@@ -4,17 +4,14 @@
 #include <SocketIoClient.h> //Import the Socket.io library, this also imports all the websockets
 
 #include <Servo_ESP32.h> //Import the Servo_ESP32 library
-#include <analogWrite.h> //Import the analogWrite.h library
+
 
 const int servoPin = 13; //Defines the servopin
 
-int TurnState; // 
 
 WiFiMulti WiFiMulti; //Declare an instane of the WiFiMulti library
 SocketIoClient webSocket; //Declare an instance of the Socket.io library
 Servo_ESP32 myServo; //Declare an instance of the Servo_ESP32 library
-
-void ControlServo(Servo_ESP32 myServo);
 
 
 void event(const char * payload, size_t length) { //Default event, what happens when you connect
@@ -27,21 +24,21 @@ void changeTurnState(const char * TurnStateData, size_t length) {
 
   //Data conversion
   String dataString(TurnStateData);
-  TurnState = dataString.toInt();
+  int TurnState = dataString.toInt();
 
 
   Serial.print("This is the Turn state in INT: ");
   Serial.println(TurnState);
 
   
-  ControlServo(TurnState);
+  ControlServo(TurnState); //Calling the function to control the servo with the states as arguments
 }
 
 void setup() {
 
     myServo.attach(servoPin);//Attach the servo to the servopin
     
-    Serial.begin(9600); //Start the serial monitor
+    Serial.begin(9600); //Initiates the serial monitor
 
     
     Serial.setDebugOutput(true); //Set debug to true (during ESP32 booting)
@@ -56,7 +53,7 @@ void setup() {
           delay(1000);
       }
 
-    WiFiMulti.addAP("NetworkName","Password"); //Add a WiFi hotspot (addAP = add AccessPoint) (put your own network name and password in here)
+    WiFiMulti.addAP("SSID","Password"); //Add a WiFi hotspot (addAP = add AccessPoint) (put your own network name and password in here)
 
     while(WiFiMulti.run() != WL_CONNECTED) { //Here we wait for a successfull WiFi connection untill we do anything else
       Serial.println("Not connected to wifi...");
