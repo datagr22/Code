@@ -1,18 +1,17 @@
 //Including the necassary libraries
+#include <WiFi.h>// Imports the needed WiFi libraries
+#include <WiFiMulti.h> //We need a second one for the ESP32 (these are included when you have the ESP32 libraries)
+
+#include <SocketIoClient.h> //Import the Socket.io library, this also imports all the websockets
 
 #include <analogWrite.h> //analogWrite library to work with ESP32
 
-//  Defining L298N ports
+//  Defining  DC-motor controller L298N ports
 
 const int enA = 14;  // defines the pin that controls the DC-motors speed
 const int in1 = 26;  // defines one of the pins that decides the rotation direction
 const int in2 = 27;  // defines the other pin that decides the rotation direction
 
-
-#include <WiFi.h>// Imports the needed WiFi libraries
-#include <WiFiMulti.h> //We need a second one for the ESP32 (these are included when you have the ESP32 libraries)
-
-#include <SocketIoClient.h> //Import the Socket.io library, this also imports all the websockets
 
 WiFiMulti WiFiMulti; //Declare an instane of the WiFiMulti library
 SocketIoClient webSocket; //Decalre an instance of the Socket.io library
